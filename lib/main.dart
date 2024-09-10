@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sql_app/data/local/db_helper.dart';
 import 'package:sql_app/screens/home_screen.dart';
 
 void main() {
@@ -12,7 +11,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    DBHelper db = DBHelper.getInstance();
     return MaterialApp(
       title: 'App',
       theme: ThemeData(

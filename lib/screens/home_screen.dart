@@ -9,6 +9,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+
   List<Map<String, dynamic>> allNotes = [];
   DBHelper? dbRef;
 
@@ -31,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('NOTES '),
         centerTitle: true,
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.deepOrangeAccent,
+        foregroundColor: Colors.white,
       ),
       //all nites visible
       body: allNotes.isNotEmpty
@@ -49,14 +53,66 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
             ///note to be added from
-            bool check = await dbRef!.addNote(
-                note_title: "First Note",
-                note_desc: "This is the firsst note description");
-            if (check) {
-              getNotes();
-            }
+            /// static notes being added
+            // bool check = await dbRef!.addNote(
+            //     note_title: "First Note",
+            //     note_desc: "This is the firsst note description");
+            // if (check) {
+            //   getNotes();
+            // }
+            //user input notes
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(12),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Add Note',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 20),
+                        TextField(
+                          controller: titleController,
+                          decoration: InputDecoration(
+                              label: Text('Note Title'),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12))),
+                        ),
+                        SizedBox(height: 20),
+                        TextField(
+                          maxLines: 6,
+                          controller: descController,
+                          decoration: InputDecoration(
+                              label: Text('Note Description'),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12))),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                            onPressed: () {
+                              var note_title = titleController.text;
+                              var note_desc = descController.text;
+                              if (note_title.isNotEmpty && )
+                            },
+                            child: Text('Save'),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.deepOrangeAccent,
+                                foregroundColor: Colors.white))
+                      ],
+                    ),
+                  );
+                });
           },
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Colors.deepOrangeAccent,
+          foregroundColor: Colors.white,
           child: Icon(Icons.add)),
     );
   }

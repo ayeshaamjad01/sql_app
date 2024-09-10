@@ -65,4 +65,11 @@ class DBHelper {
     });
     return rowsEffected > 0;
   }
+
+  ///reading all data
+  Future<List<Map<String, dynamic>>> getAllNotes() async {
+    var db = await getDB();
+    List<Map<String, dynamic>> table_data = await db.query(TABLE_NOTE);
+    return table_data;
+  }
 }

@@ -97,10 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 20),
                         ElevatedButton(
-                            onPressed: () {
-                              var note_title = titleController.text;
-                              var note_desc = descController.text;
-                              if (note_title.isNotEmpty && )
+                            onPressed: () async {
+                              var title = titleController.text;
+                              var desc = descController.text;
+                              if (title.isNotEmpty && desc.isNotEmpty) {
+                                bool check = await dbRef!.addNote(
+                                    note_title: title, note_desc: desc);
+                                if (check) getNotes();
+                              }
+                              titleController.clear();
+                              descController.clear();
                             },
                             child: Text('Save'),
                             style: ElevatedButton.styleFrom(
